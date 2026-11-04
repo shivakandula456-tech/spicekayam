@@ -295,14 +295,7 @@
         return `<li><a href="${item[2]}"${isActive ? ' aria-current="page"' : ""}>${item[1]}</a>${categoryLinks}</li>`;
       })
       .join("");
-    const announcement = announcementDismissed
-      ? ""
-      : `<div class="announcement-bar" data-announcement>
-          <div class="container announcement-bar__inner">
-            <span>Shop online with KAYAM — delivery and payment are confirmed personally on WhatsApp</span>
-            <button class="announcement-bar__close" type="button" data-dismiss-announcement aria-label="Dismiss announcement">${icon("close")}</button>
-          </div>
-        </div>`;
+    const announcement = "";
     const whatsappHref = `https://wa.me/${escapeHTML(config.WHATSAPP_NUMBER || "917888060231")}`;
     const searchIsActive = active === "shop" && new URLSearchParams(window.location.search).get("focus") === "search";
     const quickNav = active.startsWith("admin")
