@@ -93,9 +93,9 @@
         <div class="summary-row summary-row--total"><dt>Final payable</dt><dd>Pending confirmation</dd></div>
       </dl>
       ${hasDemoPrices ? '<p class="summary-note demo-price-note">Sample prices are active. Confirm or replace them in Admin before customers can submit an order.</p>' : ""}
-      <p class="summary-note">Delivery availability, delivery charges, final payable amount, and payment arrangements will be confirmed by KAYAM SPICES through WhatsApp.</p>
+      <p class="summary-note">Delivery availability and delivery charges will be confirmed by KAYAM SPICES. Payment method: Cash on Delivery.</p>
       <a class="text-link" href="cart.html" style="margin-top: 1rem; display: inline-flex;">Edit cart</a>
-      <div class="trust-line">${Kayam.icon("shield")}<span>No payment is collected on this website. Your order is saved as pending confirmation before WhatsApp opens.</span></div>
+      <div class="trust-line">${Kayam.icon("shield")}<span>Your COD order is saved in the administrator order desk before WhatsApp opens. No online payment is collected.</span></div>
     </aside>`;
   }
 
@@ -305,7 +305,7 @@
       button.textContent = label || "Saving your order…";
     } else {
       button.removeAttribute("aria-busy");
-      button.textContent = "Save order & continue to WhatsApp";
+      button.textContent = "Place COD order";
     }
   }
 
