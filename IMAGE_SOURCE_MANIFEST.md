@@ -22,10 +22,10 @@ The live site requests resized/compressed images from the Pexels CDN using `auto
 
 | Product | Pexels photo ID | Creator/source | Source page |
 |---|---:|---|---|
-| Chilli Powder | 33440709 | Bonaventure Fernandez | https://www.pexels.com/photo/spicy-red-chili-powder-in-marble-bowl-33440709/ |
-| Turmeric Powder | 7988014 | Tamanna Rumee | https://www.pexels.com/photo/7988014/ |
+| Chilli Powder | 33440712 | Bonaventure Fernandez | https://www.pexels.com/photo/red-chili-pepper-and-powder-in-marble-bowl-33440712/ |
+| Turmeric Powder | 6220707 | Karl Solano | https://www.pexels.com/photo/close-up-of-tumeric-powder-6220707/ |
 | Goda Masala | 32144884 | rm essentials | https://www.pexels.com/photo/indian-spice-mix-in-dindigul-kitchen-setting-32144884/ |
-| Sambar Premix | 7208238 | Pranjall Kumar | https://www.pexels.com/photo/close-up-shot-of-bowls-of-powder-condiments-7208238/ |
+| Sambar Premix | 7925765 | Dhanjit Sharma | https://www.pexels.com/photo/yellow-powder-in-glass-cup-7925765/ |
 | Rasam Premix | 13149632 | Extrovision | https://www.pexels.com/photo/spices-in-bowls-on-wood-13149632/ |
 | Chicken Masala | 30203310 | Nosh Caterers | https://www.pexels.com/photo/spicy-indian-curry-with-assorted-spices-30203310/ |
 | Meat Masala | 9609831 | Prabal Pratap Singh | https://www.pexels.com/photo/meal-with-meat-in-bowl-9609831/ |
@@ -54,3 +54,18 @@ The village-family hero film and its poster remain reserved for the homepage her
 | Placement | Repository asset | Source | Notes |
 |---|---|---|---|
 | Founder page and homepage story | `assets/images/suchitra-anikhindi-founder.webp` | Portrait supplied by KAYAM SPICES for this website update | Optimised 600 × 657 WebP rendition of the supplied 1199 × 1312 founder photograph; used as the founder's editorial photograph, not a logo or avatar. |
+
+
+## November 2026 catalogue photography refresh — provisional
+
+The static fallback catalogue now uses three product-focused Pexels sources:
+- Chilli Powder — photo 33440712, Bonaventure Fernandez.
+- Turmeric Powder — photo 6220707, Karl Solano.
+- Sambar Premix — photo 7925765, Dhanjit Sharma (the source page identifies the image as sambar powder).
+
+These are fallback/context photographs, not KAYAM-branded pack shots and not evidence of the live product formulas. The remaining eight fallback products retain their existing contextual images pending product-specific photographs and a live Supabase catalogue audit. The homepage category images were not changed.
+
+The KAYAM SPICES Supabase project was reported as INACTIVE on 21 November 2026. As a result, live `products` and `product_images` rows could not be inspected during this update. This repository change does not modify Supabase. When the project is active again, audit the live records before approving or replacing stored product images: non-empty Supabase `product_images` arrays take precedence over these static fallback image paths.
+
+Pexels source pages: https://www.pexels.com/photo/red-chili-pepper-and-powder-in-marble-bowl-33440712/ ; https://www.pexels.com/photo/close-up-of-tumeric-powder-6220707/ ; https://www.pexels.com/photo/yellow-powder-in-glass-cup-7925765/ .
+Pexels licence: https://www.pexels.com/license/ .
