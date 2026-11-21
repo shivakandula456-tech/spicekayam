@@ -224,7 +224,7 @@
 
   function renderDetail(order, items, events) {
     if (!dialogBody) return;
-    const availableTransitions = allowedTransitions;
+    const availableTransitions = transitions[order.status] || [];
     const allowedTransitions = availableTransitions.filter((status) => !(
       order.status === "pending_confirmation" &&
       status === "confirmed" &&
@@ -308,7 +308,7 @@
                     <div class="admin-field">
                       <label for="order-status-select">Next status</label>
                       <select class="admin-select" id="order-status-select" name="status" required>
-                        ${(transitions[order.status] || [])
+                        ${(allowedTransitions)
                           .map(
                             (status) =>
                               `<option value="${status}">${Admin.escapeHTML(Admin.statusLabel(status))}</option>`,
