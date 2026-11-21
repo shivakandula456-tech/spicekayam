@@ -79,7 +79,7 @@
     listHost.innerHTML = `<div class="admin-table-wrap">
       <table class="admin-table">
         <thead>
-          <tr><th>Order</th><th>Customer</th><th>Status</th><th>Amount</th><th>Saved</th><th></th></tr>
+          <tr><th>Order</th><th>Customer</th><th>Status</th><th>Payment</th><th>Amount</th><th>Saved</th><th></th></tr>
         </thead>
         <tbody>
           ${orders
@@ -96,6 +96,7 @@
                   <span class="admin-table__secondary">${Admin.escapeHTML(order.customer_phone)}</span>
                 </td>
                 <td>${Admin.statusMarkup(order.status)}</td>
+                <td><span class="admin-table__secondary" style="margin:0;">COD · ${order.payment_status === "collected" ? "Collected" : "Pending"}</span></td>
                 <td>${orderAmount(order)}</td>
                 <td><span class="admin-table__secondary" style="margin:0;">${Admin.formatDate(order.created_at, true)}</span></td>
                 <td>
@@ -146,7 +147,7 @@
       let query = client
         .from("orders")
         .select(
-          "id,order_reference,customer_name,customer_phone,status,subtotal,shipping_charge,final_total,created_at",
+          "id,order_reference,customer_name,customer_phone,status,payment_method,payment_status,subtotal,shipping_charge,final_total,created_at",
           { count: "exact" },
         );
       if (state.status) query = query.eq("status", state.status);
@@ -224,6 +225,16 @@
   function renderDetail(order, items, events) {
     if (!dialogBody) return;
     const canTransition = (transitions[order.status] || []).length > 0;
+    const addressLines = [
+      order.delivery_house ? "House / flat: " + order.delivery_house : "",
+      order.delivery_street ? "Building / street: " + order.delivery_street : "",
+      order.delivery_area ? "Area / locality: " + order.delivery_area : "",
+      order.delivery_landmark ? "Landmark: " + order.delivery_landmark : "",
+      order.delivery_city ? "City: " + order.delivery_city : "",
+      order.delivery_state ? "State: " + order.delivery_state : "",
+      order.delivery_pincode ? "PIN code: " + order.delivery_pincode : "",
+      order.delivery_instructions ? "Instructions: " + order.delivery_instructions : "",
+    ].filter(Boolean).join("\n");
     const waNumber = whatsappDigits(order.customer_phone);
     dialogTitle.textContent = order.order_reference;
     dialogSubtitle.textContent = `Saved ${Admin.formatDate(order.created_at, true)} · ${Admin.statusLabel(order.status)}`;
@@ -238,7 +249,11 @@
             )}" target="_blank" rel="noopener">${Admin.escapeHTML(order.customer_phone)}</a></dd></div>
             <div><dt>Reference</dt><dd>${Admin.escapeHTML(order.order_reference)}</dd></div>
           </dl>
-          <p class="admin-address">${Admin.escapeHTML(order.delivery_address)}</p>
+          <p class="admin-address">${Admin.escapeHTML(addressLines || order.delivery_address)}</p>
+          <dl class="admin-detail-list" style="margin-top:.75rem;">
+            <div><dt>Payment method</dt><dd>Cash on Delivery (COD)</dd></div>
+            <div><dt>Payment status</dt><dd>${order.payment_status === "collected" ? "Collected" : "Pending collection"}</dd></div>
+          </dl>
           <div class="admin-form-actions">
             <button class="admin-btn admin-btn--outline admin-btn--small" type="button" data-copy-reference="${Admin.escapeHTML(
               order.order_reference,
@@ -318,7 +333,7 @@
                       <input class="admin-input" id="order-shipping-input" name="shipping" type="number" min="0" max="1000000" step="0.01" inputmode="decimal" required value="${
                         order.shipping_charge === null ? "" : Admin.escapeHTML(String(order.shipping_charge))
                       }">
-                      <p class="admin-field__hint">Saving this sets the final payable amount to the subtotal plus this charge.</p>
+                      <p class="admin-field__hint">Enter 0 when delivery is free. The final payable amount is subtotal plus this charge. This must be saved before confirming the order.</p>
                     </div>
                     <div class="admin-field">
                       <label for="order-shipping-note">Internal note (optional)</label>
@@ -327,6 +342,16 @@
                     <button class="admin-btn" type="submit">Save delivery charge</button>
                   </div>
                 </form>`
+          }
+        </section>
+
+        <section class="admin-panel">
+          <h3>Cash on delivery</h3>
+          ${order.payment_status === "collected"
+            ? '<p class="admin-small admin-muted">Cash has been marked as collected.</p>'
+            : order.status === "delivered"
+              ? '<form id="order-payment-form" novalidate><div class="admin-inline-stack"><p class="admin-field__hint">Confirm that the delivery person received the cash before marking this order as collected.</p><div class="admin-field"><label for="order-payment-note">Collection note (optional)</label><textarea class="admin-textarea" id="order-payment-note" name="note" rows="2" maxlength="1000"></textarea></div><button class="admin-btn" type="submit">Mark COD as collected</button></div></form>'
+              : '<p class="admin-small admin-muted">Cash collection can be recorded after the order is marked Delivered.</p>'
           }
         </section>
       </div>
@@ -363,7 +388,7 @@
         client
           .from("orders")
           .select(
-            "id,order_reference,customer_name,customer_phone,delivery_address,subtotal,shipping_charge,final_total,status,admin_note,created_at,updated_at",
+            "id,order_reference,customer_name,customer_phone,delivery_address,delivery_house,delivery_street,delivery_area,delivery_landmark,delivery_city,delivery_state,delivery_pincode,delivery_instructions,payment_method,payment_status,payment_collected_at,subtotal,shipping_charge,final_total,status,admin_note,created_at,updated_at",
           )
           .eq("id", id)
           .single(),
@@ -489,6 +514,39 @@
     }
   }
 
+
+  async function updatePaymentStatus(form) {
+    if (state.actionBusy || !state.currentOrderId) return;
+    const orderId = state.currentOrderId;
+    const note = form.elements.note.value.trim();
+    const submit = form.querySelector('button[type="submit"]');
+    state.actionBusy = true;
+    if (submit) {
+      submit.disabled = true;
+      submit.textContent = "Saving…";
+    }
+    try {
+      const { error } = await Admin.getClient().rpc("admin_update_payment_status", {
+        p_order_id: orderId,
+        p_payment_status: "collected",
+        p_note: note || null,
+      });
+      if (error) throw error;
+      Admin.showToast("COD payment marked as collected.", "success");
+      if (dialog.open && state.currentOrderId === orderId) await loadOrderDetail(orderId);
+      loadOrders({ silent: true });
+    } catch (error) {
+      console.error(error);
+      dialogAlert(Admin.errorMessage(error, "COD payment status could not be updated."), "error");
+      if (submit) {
+        submit.disabled = false;
+        submit.textContent = "Mark COD as collected";
+      }
+    } finally {
+      state.actionBusy = false;
+    }
+  }
+
   function bindEvents() {
     if (filters) {
       filters.addEventListener("submit", function (event) {
@@ -563,6 +621,10 @@
         if (event.target.id === "order-shipping-form") {
           event.preventDefault();
           updateShipping(event.target);
+        }
+        if (event.target.id === "order-payment-form") {
+          event.preventDefault();
+          updatePaymentStatus(event.target);
         }
       });
       dialog.addEventListener("click", function (event) {
