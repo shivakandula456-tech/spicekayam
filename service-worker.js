@@ -1,5 +1,5 @@
 /* KAYAM SPICES PWA service worker. Keep Supabase/API requests and video streams network-only. */
-const CACHE_NAME = "kayam-spices-shell-v3-founder-heritage";
+const CACHE_NAME = "kayam-spices-shell-v4-consolidated-story";
 const APP_SCOPE = new URL("./", self.registration.scope);
 const PRECACHE = [
   "./", "./index.html", "./shop.html", "./product.html", "./cart.html", "./checkout.html",
