@@ -1,0 +1,28 @@
+/* KAYAM SPICES — desktop readability refinement.
+   Deliberately scoped above 900px; mobile typography is not modified. */
+@media (min-width: 900px) {
+  body {
+    font-size: 1.04rem;
+  }
+
+  .primary-nav__link {
+    font-size: 0.77rem;
+    letter-spacing: 0.1em;
+  }
+
+  .product-card__desc {
+    font-size: 0.82rem;
+  }
+
+  .story-split__copy > p {
+    font-size: 1rem;
+  }
+
+  .process-card p {
+    font-size: 0.85rem;
+  }
+
+  .page-hero__copy > p {
+    font-size: 1.025rem;
+  }
+}

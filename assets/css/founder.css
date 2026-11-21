@@ -1,0 +1,211 @@
+/* KAYAM SPICES — founder and heritage editorial layouts.
+   Mobile rules below affect layout only; no mobile font declarations are added. */
+.founder-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6.5rem);
+}
+
+.founder-portrait-frame {
+  margin: 0;
+  padding: 0.65rem;
+  border: 1px solid var(--gold-line);
+  background: var(--white);
+  box-shadow: var(--shadow-md);
+}
+
+.founder-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 600 / 657;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 2px;
+}
+
+.founder-photo-caption {
+  margin: 0;
+  padding: 0.85rem 0.35rem 0.2rem;
+  color: var(--muted);
+  letter-spacing: 0.025em;
+}
+
+.founder-copy h2 {
+  margin-bottom: 0.65rem;
+  color: var(--forest-deep);
+}
+
+.founder-copy > p {
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.founder-actions {
+  margin-top: 1.6rem;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.founder-photo--home {
+  aspect-ratio: 600 / 657;
+  object-fit: cover;
+  object-position: center;
+}
+
+.founder-photo--home + .founder-photo-caption {
+  margin-top: 0;
+}
+
+.heritage-generation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.heritage-generation-card {
+  min-height: 100%;
+  padding: clamp(1.4rem, 2.3vw, 2.2rem);
+  border: 1px solid var(--gold-line);
+  background: var(--white);
+  color: var(--ink);
+}
+
+.section--green .heritage-generation-card {
+  border-color: rgba(232, 213, 167, 0.3);
+  background: rgba(248, 241, 228, 0.055);
+  color: var(--ivory);
+}
+
+.heritage-generation-card__number {
+  display: block;
+  margin-bottom: 1.2rem;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.section--green .heritage-generation-card__number {
+  color: var(--gold-bright);
+}
+
+.heritage-generation-card h3 {
+  margin-bottom: 0.55rem;
+  color: var(--forest-deep);
+}
+
+.section--green .heritage-generation-card h3 {
+  color: var(--ivory);
+}
+
+.heritage-generation-card p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.section--green .heritage-generation-card p:last-child {
+  color: rgba(248, 241, 228, 0.72);
+}
+
+.heritage-language-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.heritage-language-card {
+  padding: clamp(1.6rem, 3vw, 2.8rem);
+  border: 1px solid rgba(232, 213, 167, 0.35);
+  background: var(--forest);
+  color: var(--ivory);
+}
+
+.heritage-language-card--marathi {
+  background: var(--charcoal);
+}
+
+.heritage-language-card .eyebrow {
+  color: var(--gold-soft);
+}
+
+.heritage-language-card h3 {
+  margin: 0.35rem 0 0.8rem;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+.heritage-language-card p:last-child {
+  margin-bottom: 0;
+  color: rgba(248, 241, 228, 0.78);
+  line-height: 1.85;
+}
+
+.heritage-note {
+  max-width: 900px;
+  margin: 1.5rem auto 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+.founder-closing {
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.founder-closing h2 {
+  margin-bottom: 1rem;
+  color: var(--forest-deep);
+}
+
+.founder-closing > p:not(.eyebrow) {
+  max-width: 760px;
+  margin-inline: auto;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.founder-closing .founder-actions {
+  justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .founder-copy > p {
+    font-size: 1rem;
+  }
+
+  .heritage-generation-card p:last-child,
+  .heritage-language-card p:last-child {
+    font-size: 0.94rem;
+  }
+}
+
+@media (max-width: 899px) {
+  .founder-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.8rem;
+  }
+
+  .founder-portrait-frame {
+    width: 100%;
+    max-width: 680px;
+    margin-inline: auto;
+  }
+
+  .heritage-generation-grid,
+  .heritage-language-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .founder-actions {
+    display: flex;
+  }
+
+  .founder-closing .founder-actions {
+    justify-content: center;
+  }
+}

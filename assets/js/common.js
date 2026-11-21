@@ -269,30 +269,48 @@
         return `<li><a href="shop.html?category=${encodeURIComponent(item[0])}">${escapeHTML(item[1])}<span aria-hidden="true">${icon("arrowUpRight")}</span></a></li>`;
       })
       .join("");
+    const storyMenuMarkup = `<ul class="category-menu story-menu" aria-label="Explore our story">
+      <li class="category-menu__eyebrow">The KAYAM story</li>
+      <li><a href="story.html"${active === "story" ? ' aria-current="page"' : ""}>Our Heritage<span aria-hidden="true">${icon("arrowUpRight")}</span></a></li>
+      <li><a href="founder.html"${active === "founder" ? ' aria-current="page"' : ""}>Meet Suchitra Anikhindi<span aria-hidden="true">${icon("arrowUpRight")}</span></a></li>
+    </ul>`;
     const navMarkup = navItems
       .map(function (item) {
-        const isActive = active === item[0];
         const hasCategories = item[0] === "shop";
-        return `<li class="primary-nav__item${hasCategories ? " primary-nav__item--shop" : ""}">
-          <a class="primary-nav__link" href="${item[2]}"${isActive ? ' aria-current="page"' : ""}${hasCategories ? ' aria-haspopup="true"' : ""}>
-            ${item[1]}${hasCategories ? '<span class="primary-nav__caret" aria-hidden="true"></span>' : ""}
+        const hasStoryLinks = item[0] === "story";
+        const hasMenu = hasCategories || hasStoryLinks;
+        const isActive = active === item[0] || (hasStoryLinks && active === "founder");
+        const itemClass = hasCategories ? " primary-nav__item--shop" : hasStoryLinks ? " primary-nav__item--story" : "";
+        const menu = hasCategories
+          ? `<ul class="category-menu" aria-label="Shop by category">
+              <li class="category-menu__eyebrow">Explore the pantry</li>
+              ${categoryMenuMarkup}
+            </ul>`
+          : hasStoryLinks ? storyMenuMarkup : "";
+        return `<li class="primary-nav__item${itemClass}">
+          <a class="primary-nav__link" href="${item[2]}"${isActive ? ' aria-current="page"' : ""}${hasMenu ? ' aria-haspopup="true"' : ""}>
+            ${item[1]}${hasMenu ? '<span class="primary-nav__caret" aria-hidden="true"></span>' : ""}
           </a>
-          ${hasCategories ? `<ul class="category-menu" aria-label="Shop by category">
-            <li class="category-menu__eyebrow">Explore the pantry</li>
-            ${categoryMenuMarkup}
-          </ul>` : ""}
+          ${menu}
         </li>`;
       })
       .join("");
     const drawerMarkup = navItems
       .map(function (item) {
-        const isActive = active === item[0];
+        const hasStoryLinks = item[0] === "story";
+        const isActive = active === item[0] || (hasStoryLinks && active === "founder");
         const categoryLinks = item[0] === "shop"
           ? `<ul class="nav-drawer__subnav" aria-label="Shop by category">${categoryItems.map(function (category) {
               return `<li><a href="shop.html?category=${encodeURIComponent(category[0])}">${escapeHTML(category[1])}</a></li>`;
             }).join("")}</ul>`
           : "";
-        return `<li><a href="${item[2]}"${isActive ? ' aria-current="page"' : ""}>${item[1]}</a>${categoryLinks}</li>`;
+        const storyLinks = hasStoryLinks
+          ? `<ul class="nav-drawer__subnav" aria-label="Our story">
+              <li><a href="story.html"${active === "story" ? ' aria-current="page"' : ""}>Our Heritage</a></li>
+              <li><a href="founder.html"${active === "founder" ? ' aria-current="page"' : ""}>Meet Suchitra Anikhindi</a></li>
+            </ul>`
+          : "";
+        return `<li><a href="${item[2]}"${isActive ? ' aria-current="page"' : ""}>${item[1]}</a>${categoryLinks}${storyLinks}</li>`;
       })
       .join("");
     const announcement = "";

@@ -3414,3 +3414,24 @@
 .breadcrumbs a {
   transition: color 160ms var(--ease);
 }
+
+
+/* Founder and heritage navigation — desktop dropdown, matching the Shop menu. */
+@media (min-width: 900px) {
+  .story-menu {
+    width: min(360px, 62vw);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.2rem;
+  }
+  .primary-nav__item--story:hover > .story-menu,
+  .primary-nav__item--story:focus-within > .story-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    visibility: visible;
+  }
+  .story-menu > li > a[aria-current="page"] {
+    background: var(--ivory-deep);
+    color: var(--spice-red-dark);
+  }
+}

@@ -1,6 +1,6 @@
 # KAYAM SPICES — Image source and licence manifest
 
-Last updated: 28 October 2026
+Last updated: 21 November 2026
 
 ## Usage and licence
 
@@ -47,3 +47,10 @@ Groundnut Chutney Powder uses a photograph of whole peanuts as an ingredient ref
 ## Hero-image separation
 
 The village-family hero film and its poster remain reserved for the homepage hero and its social-preview metadata. None of the 19 stock photo IDs above is a still or crop from that film. The old category images and the story-page frame taken from the hero film have been removed from public page references.
+
+
+## Owner-supplied founder photography
+
+| Placement | Repository asset | Source | Notes |
+|---|---|---|---|
+| Founder page and homepage story | `assets/images/suchitra-anikhindi-founder.webp` | Portrait supplied by KAYAM SPICES for this website update | Optimised 600 × 657 WebP rendition of the supplied 1199 × 1312 founder photograph; used as the founder's editorial photograph, not a logo or avatar. |
