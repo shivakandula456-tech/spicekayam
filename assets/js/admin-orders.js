@@ -224,7 +224,12 @@
 
   function renderDetail(order, items, events) {
     if (!dialogBody) return;
-    const canTransition = (transitions[order.status] || []).length > 0;
+    const allowedTransitions = (allowedTransitions).filter((status) => !(
+      order.status === "pending_confirmation" &&
+      status === "confirmed" &&
+      (order.shipping_charge === null || order.final_total === null)
+    ));
+    const canTransition = allowedTransitions.length > 0;
     const addressLines = [
       order.delivery_house ? "House / flat: " + order.delivery_house : "",
       order.delivery_street ? "Building / street: " + order.delivery_street : "",
@@ -310,6 +315,7 @@
                           .join("")}
                       </select>
                     </div>
+                    ${order.status === "pending_confirmation" && order.final_total === null ? '<p class="admin-field__hint">Save the delivery charge above (enter 0 when free) before confirming this order.</p>' : ""}
                     <div class="admin-field">
                       <label for="order-status-note">Internal note (optional)</label>
                       <textarea class="admin-textarea" id="order-status-note" name="note" rows="3" maxlength="1000"></textarea>
@@ -365,7 +371,9 @@
                   const label =
                     event.event_type === "shipping_updated"
                       ? "Delivery charge updated"
-                      : `${Admin.statusLabel(event.old_status)} → ${Admin.statusLabel(event.new_status)}`;
+                      : event.event_type === "payment_updated"
+                        ? "COD payment collected"
+                        : `${Admin.statusLabel(event.old_status)} → ${Admin.statusLabel(event.new_status)}`;
                   return `<li><strong>${Admin.escapeHTML(label)}</strong> · ${Admin.formatDate(
                     event.created_at,
                     true,
