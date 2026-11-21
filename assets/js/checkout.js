@@ -128,25 +128,72 @@
               <span class="form-section__number" aria-hidden="true">2</span>
               <h2 class="form-section__title" id="delivery-title">Delivery address</h2>
             </div>
-            <div class="field" data-field="address">
-              <label class="field__label" for="checkout-address">Full delivery address <span class="required" aria-hidden="true">*</span></label>
-              <textarea class="textarea" id="checkout-address" name="address" autocomplete="street-address" required maxlength="1000" rows="5" placeholder="House or flat number, street, area, city, state, and PIN code" aria-describedby="checkout-address-hint checkout-address-error"></textarea>
-              <p class="field__hint" id="checkout-address-hint">Include landmarks if they help. Delivery availability is confirmed after the order is sent.</p>
-              <p class="field__error" id="checkout-address-error"></p>
+            <div class="form-grid form-grid--two">
+              <div class="field" data-field="house">
+                <label class="field__label" for="checkout-house">House / flat number <span class="required" aria-hidden="true">*</span></label>
+                <input class="input" id="checkout-house" name="house" autocomplete="address-line1" required maxlength="120" aria-describedby="checkout-house-error">
+                <p class="field__error" id="checkout-house-error"></p>
+              </div>
+              <div class="field" data-field="street">
+                <label class="field__label" for="checkout-street">Building / street <span class="required" aria-hidden="true">*</span></label>
+                <input class="input" id="checkout-street" name="street" autocomplete="address-line2" required maxlength="160" aria-describedby="checkout-street-error">
+                <p class="field__error" id="checkout-street-error"></p>
+              </div>
+              <div class="field" data-field="area">
+                <label class="field__label" for="checkout-area">Area / locality <span class="required" aria-hidden="true">*</span></label>
+                <input class="input" id="checkout-area" name="area" autocomplete="address-level3" required maxlength="160" aria-describedby="checkout-area-error">
+                <p class="field__error" id="checkout-area-error"></p>
+              </div>
+              <div class="field" data-field="landmark">
+                <label class="field__label" for="checkout-landmark">Landmark</label>
+                <input class="input" id="checkout-landmark" name="landmark" maxlength="160" aria-describedby="checkout-landmark-error">
+                <p class="field__error" id="checkout-landmark-error"></p>
+              </div>
+              <div class="field" data-field="city">
+                <label class="field__label" for="checkout-city">City <span class="required" aria-hidden="true">*</span></label>
+                <input class="input" id="checkout-city" name="city" autocomplete="address-level2" required maxlength="120" aria-describedby="checkout-city-error">
+                <p class="field__error" id="checkout-city-error"></p>
+              </div>
+              <div class="field" data-field="state">
+                <label class="field__label" for="checkout-state">State <span class="required" aria-hidden="true">*</span></label>
+                <input class="input" id="checkout-state" name="state" autocomplete="address-level1" required maxlength="120" aria-describedby="checkout-state-error">
+                <p class="field__error" id="checkout-state-error"></p>
+              </div>
+              <div class="field" data-field="pincode">
+                <label class="field__label" for="checkout-pincode">PIN code <span class="required" aria-hidden="true">*</span></label>
+                <input class="input" id="checkout-pincode" name="pincode" type="text" inputmode="numeric" autocomplete="postal-code" required maxlength="6" pattern="[1-9][0-9]{5}" aria-describedby="checkout-pincode-error">
+                <p class="field__error" id="checkout-pincode-error"></p>
+              </div>
+              <div class="field field--full" data-field="instructions">
+                <label class="field__label" for="checkout-instructions">Delivery instructions</label>
+                <textarea class="textarea" id="checkout-instructions" name="instructions" maxlength="500" rows="2" placeholder="Optional instructions for the delivery person" aria-describedby="checkout-instructions-error"></textarea>
+                <p class="field__error" id="checkout-instructions-error"></p>
+              </div>
+            </div>
+            <p class="field__hint">KAYAM SPICES will check serviceability and confirm delivery charges before accepting the order.</p>
+          </section>
+          <section class="form-section" aria-labelledby="payment-title">
+            <div class="form-section__head">
+              <span class="form-section__number" aria-hidden="true">3</span>
+              <h2 class="form-section__title" id="payment-title">Payment method</h2>
+            </div>
+            <div class="inline-note">
+              ${Kayam.icon("info")}
+              <div><strong>Cash on Delivery (COD)</strong><br>Pay cash when your order is delivered. No online payment is collected by this website.</div>
             </div>
           </section>
           <section class="form-section" aria-labelledby="review-title">
             <div class="form-section__head">
-              <span class="form-section__number" aria-hidden="true">3</span>
-              <h2 class="form-section__title" id="review-title">Review &amp; save</h2>
+              <span class="form-section__number" aria-hidden="true">4</span>
+              <h2 class="form-section__title" id="review-title">Review &amp; place order</h2>
             </div>
             <div class="inline-note">
               ${Kayam.icon("info")}
-              <div>Delivery availability, delivery charges, final payable amount, and payment arrangements will be confirmed by KAYAM SPICES through WhatsApp. Your order will be saved with a pending-confirmation status. Payment is arranged separately.</div>
+              <div>Your order will be saved securely and sent to the KAYAM SPICES order desk. Delivery availability and charges will be confirmed by the team. Payment method: Cash on Delivery.</div>
             </div>
             <div class="stack" style="margin-top: 1rem;">
-              <button class="btn btn--dark btn--large btn--block" type="submit" id="place-order-button"${cartState.lines.some((line) => line.variant && line.variant.isDemo) ? " disabled" : ""}>${cartState.lines.some((line) => line.variant && line.variant.isDemo) ? "Waiting for confirmed prices" : "Save order &amp; continue to WhatsApp"}</button>
-              <p class="field__hint" style="text-align: center;">${cartState.lines.some((line) => line.variant && line.variant.isDemo) ? "Sample prices must be replaced or confirmed by the administrator before this order can be submitted." : "WhatsApp opens only after the order has been saved successfully."}</p>
+              <button class="btn btn--dark btn--large btn--block" type="submit" id="place-order-button"${cartState.lines.some((line) => line.variant && line.variant.isDemo) ? " disabled" : ""}>${cartState.lines.some((line) => line.variant && line.variant.isDemo) ? "Waiting for confirmed prices" : "Place COD order"}</button>
+              <p class="field__hint" style="text-align: center;">The order will appear in the administrator's Orders section. WhatsApp opens after the order is saved.</p>
             </div>
           </section>
         </form>
@@ -161,7 +208,14 @@
     const fields = {
       name: document.getElementById("checkout-name"),
       phone: document.getElementById("checkout-phone"),
-      address: document.getElementById("checkout-address"),
+      house: document.getElementById("checkout-house"),
+      street: document.getElementById("checkout-street"),
+      area: document.getElementById("checkout-area"),
+      landmark: document.getElementById("checkout-landmark"),
+      city: document.getElementById("checkout-city"),
+      state: document.getElementById("checkout-state"),
+      pincode: document.getElementById("checkout-pincode"),
+      instructions: document.getElementById("checkout-instructions"),
     };
     Object.keys(fields).forEach(function (key) {
       const input = fields[key];
@@ -193,11 +247,14 @@
       if (digits.length < 7 || digits.length > 15) return "Enter a phone number with 7 to 15 digits.";
       return "";
     }
-    if (name === "address") {
-      if (trimmed.length < 10) return "Enter your full delivery address.";
-      if (trimmed.length > 1000) return "Please keep the address under 1,000 characters.";
+    if (["house", "street", "area", "city", "state"].includes(name)) {
+      if (trimmed.length < 2) return "This address field is required.";
+      if (trimmed.length > (name === "house" ? 120 : 160)) return "This address field is too long.";
       return "";
     }
+    if (name === "pincode") return /^[1-9][0-9]{5}$/.test(trimmed) ? "" : "Enter a valid six-digit Indian PIN code.";
+    if (name === "landmark" && trimmed.length > 160) return "Landmark must be 160 characters or fewer.";
+    if (name === "instructions" && trimmed.length > 500) return "Delivery instructions must be 500 characters or fewer.";
     return "";
   }
 
@@ -260,7 +317,14 @@
     const formData = {
       name: fields.name.value.trim(),
       phone: fields.phone.value.trim(),
-      address: fields.address.value.trim(),
+      house: fields.house.value.trim(),
+      street: fields.street.value.trim(),
+      area: fields.area.value.trim(),
+      landmark: fields.landmark.value.trim(),
+      city: fields.city.value.trim(),
+      state: fields.state.value.trim(),
+      pincode: fields.pincode.value.trim(),
+      instructions: fields.instructions.value.trim(),
     };
     saveOrder(formData);
   }
@@ -356,10 +420,17 @@
       freshState.lines.forEach(function (line) {
         expectedPrices[line.variant.id] = Kayam.paiseToDecimal(line.unitPricePaise);
       });
-      const { data, error } = await window.KayamDB.getClient().rpc("create_order", {
+      const { data, error } = await window.KayamDB.getClient().rpc("create_customer_order", {
         p_customer_name: customer.name,
         p_customer_phone: customer.phone,
-        p_delivery_address: customer.address,
+        p_address_house: customer.house,
+        p_address_street: customer.street,
+        p_address_area: customer.area,
+        p_address_landmark: customer.landmark || null,
+        p_delivery_city: customer.city,
+        p_delivery_state: customer.state,
+        p_delivery_pincode: customer.pincode,
+        p_delivery_instructions: customer.instructions || null,
         p_items: items,
         p_submission_key: submissionKey,
         p_expected_prices: expectedPrices,
@@ -414,7 +485,26 @@
         status: result.status || "pending_confirmation",
         customerName: customer.name,
         customerPhone: customer.phone,
-        customerAddress: customer.address,
+        customerAddress: [
+          "House / flat: " + customer.house,
+          "Building / street: " + customer.street,
+          "Area / locality: " + customer.area,
+          customer.landmark ? "Landmark: " + customer.landmark : "",
+          "City: " + customer.city,
+          "State: " + customer.state,
+          "PIN code: " + customer.pincode,
+          customer.instructions ? "Delivery instructions: " + customer.instructions : "",
+        ].filter(Boolean).join("\n"),
+        deliveryHouse: customer.house,
+        deliveryStreet: customer.street,
+        deliveryArea: customer.area,
+        deliveryLandmark: customer.landmark,
+        deliveryCity: customer.city,
+        deliveryState: customer.state,
+        deliveryPincode: customer.pincode,
+        deliveryInstructions: customer.instructions,
+        paymentMethod: "cod",
+        paymentStatus: "pending_collection",
         items: savedItems,
         orderedVariantIds: savedItems.map((item) => item.variantId).filter(Boolean),
         subtotalPaise: Kayam.moneyToPaise(result.subtotal),
@@ -483,14 +573,14 @@
       <span class="order-success__mark">${Kayam.icon("check")}</span>
       <p class="order-success__ref">Order saved · ${Kayam.escapeHTML(order.orderReference)}</p>
       <h1>Your order is pending confirmation.</h1>
-      <p class="order-success__lede">We could not keep the confirmation details in this browser session, but your order was saved and your cart has been cleared for the saved items. Please open WhatsApp to send the order reference to KAYAM SPICES.</p>
+      <p class="order-success__lede">Your COD order is saved in the KAYAM SPICES administrator order desk. Use WhatsApp to share the reference with the team.</p>
       <div class="order-actions">
         <a class="btn btn--dark btn--large" id="inline-whatsapp-link" href="${Kayam.whatsapp.buildWhatsAppUrl(
           Kayam.whatsapp.buildOrderMessage(order),
         )}" target="_blank" rel="noopener">${Kayam.icon("whatsapp")} Open WhatsApp</a>
         <a class="btn btn--outline btn--large" href="contact.html">Contact KAYAM SPICES</a>
       </div>
-      <p class="order-warning">Delivery availability, delivery charges, final payable amount, and payment arrangements must be confirmed by KAYAM SPICES. No payment is collected on this website.</p>
+      <p class="order-warning">Payment method: Cash on Delivery. Pay cash at delivery after KAYAM SPICES confirms the final amount.</p>
     </div>`;
   }
 
@@ -504,12 +594,12 @@
       <span class="order-success__mark">${Kayam.icon("check")}</span>
       <p class="order-success__ref">Order saved · ${Kayam.escapeHTML(reference)}</p>
       <h1>Your order was saved.</h1>
-      <p class="order-success__lede">We could not prepare the confirmation page in this browser, but your order was recorded. Your cart has been cleared for the saved items. Send the order reference to KAYAM SPICES on WhatsApp so they can confirm delivery and payment.</p>
+      <p class="order-success__lede">Your COD order was recorded. Send the reference to KAYAM SPICES on WhatsApp so the team can confirm availability and delivery charges.</p>
       <div class="order-actions">
         <a class="btn btn--dark btn--large" href="${Kayam.escapeHTML(whatsappUrl)}" target="_blank" rel="noopener">${Kayam.icon("whatsapp")} Open WhatsApp</a>
         <a class="btn btn--outline btn--large" href="contact.html">Contact KAYAM SPICES</a>
       </div>
-      <p class="order-warning">Delivery availability, delivery charges, final payable amount, and payment arrangements must be confirmed by KAYAM SPICES. No payment is collected on this website.</p>
+      <p class="order-warning">Payment method: Cash on Delivery. Pay cash at delivery after KAYAM SPICES confirms the final amount.</p>
     </div>`;
   }
 
