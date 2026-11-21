@@ -84,7 +84,7 @@
       <span class="order-success__mark" aria-hidden="true">${Kayam.icon("check")}</span>
       <p class="order-success__ref">Order reference <strong>${Kayam.escapeHTML(order.orderReference)}</strong></p>
       <h1>Order saved.<br>Awaiting confirmation.</h1>
-      <p class="order-success__lede">Your order has been saved with KAYAM SPICES and is pending business confirmation. Delivery availability, charges, final payable amount, and payment are arranged directly on WhatsApp.</p>
+      <p class="order-success__lede">Your COD order has been saved with KAYAM SPICES and is pending business confirmation. The administrator will confirm delivery availability, delivery charges and the final payable amount.</p>
       <div class="badge badge--warning"><span class="status-dot" aria-hidden="true"></span> Pending confirmation</div>
 
       <div id="handoff-status" class="alert alert--info" role="status" style="margin-top: 1.5rem; text-align: left;">
@@ -121,7 +121,7 @@
             <div class="summary-row"><dt>Delivery charges</dt><dd>${shipping}</dd></div>
             <div class="summary-row summary-row--total"><dt>Final payable</dt><dd>${finalTotal}</dd></div>
           </dl>
-          <p class="summary-note">No payment is collected on this website. Payment is arranged separately with KAYAM SPICES after confirmation.</p>
+          <p class="summary-note"><strong>Payment method: Cash on Delivery.</strong> Pay cash when the order is delivered. No online payment is collected.</p>
         </section>
         <section class="order-panel" style="grid-column: 1 / -1;" aria-labelledby="confirmation-next-title">
           <h2 id="confirmation-next-title">What happens next</h2>
@@ -129,9 +129,10 @@
             <div><dt>Order status</dt><dd>Pending confirmation</dd></div>
             <div><dt>Order saved</dt><dd>${Kayam.formatDate(order.createdAt, true)}</dd></div>
             <div><dt>Delivery</dt><dd>To be confirmed on WhatsApp</dd></div>
-            <div><dt>Payment</dt><dd>Arranged separately</dd></div>
+            <div><dt>Payment method</dt><dd>Cash on Delivery (COD)</dd></div>
+            <div><dt>Payment status</dt><dd>Pending collection after delivery</dd></div>
           </div>
-          <p class="order-warning">A saved order is not a business confirmation. KAYAM SPICES will confirm delivery availability, delivery charges, the final payable amount, and payment arrangements. If WhatsApp does not open, send the order reference <strong>${Kayam.escapeHTML(
+          <p class="order-warning">A saved order is not a business confirmation. KAYAM SPICES will confirm delivery availability, delivery charges and the final payable amount. Payment is Cash on Delivery. If WhatsApp does not open, send the order reference <strong>${Kayam.escapeHTML(
             order.orderReference,
           )}</strong> to <a href="https://wa.me/917888060231" target="_blank" rel="noopener" style="text-decoration: underline; text-decoration-color: var(--gold);">+91 788 806 0231</a> or email <a href="mailto:anikhindi.suchi@gmail.com" style="text-decoration: underline; text-decoration-color: var(--gold);">anikhindi.suchi@gmail.com</a>.</p>
         </section>
