@@ -224,7 +224,8 @@
 
   function renderDetail(order, items, events) {
     if (!dialogBody) return;
-    const allowedTransitions = (allowedTransitions).filter((status) => !(
+    const availableTransitions = allowedTransitions;
+    const allowedTransitions = availableTransitions.filter((status) => !(
       order.status === "pending_confirmation" &&
       status === "confirmed" &&
       (order.shipping_charge === null || order.final_total === null)
