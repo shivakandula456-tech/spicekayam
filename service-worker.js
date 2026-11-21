@@ -1,5 +1,5 @@
 /* KAYAM SPICES PWA service worker. Keep Supabase/API requests and video streams network-only. */
-const CACHE_NAME = "kayam-spices-shell-v6-cod-checkout";
+const CACHE_NAME = "kayam-spices-shell-v7-admin-orders-network";
 const APP_SCOPE = new URL("./", self.registration.scope);
 const PRECACHE = [
   "./", "./index.html", "./shop.html", "./product.html", "./cart.html", "./checkout.html",
@@ -51,6 +51,13 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+  // Admin order detail logic must always be fetched fresh after a deployment.
+  // A cache-first response can otherwise preserve an older broken order renderer.
+  if (url.pathname.endsWith("/assets/js/admin-orders.js")) {
+    event.respondWith(fetch(new Request(request, { cache: "no-store" })));
+    return;
+  }
+
   // Large videos are deliberately network-only to avoid filling a phone's storage.
   if (request.destination === "video" || /\.mp4(?:$|\?)/i.test(url.pathname + url.search)) return;
 
