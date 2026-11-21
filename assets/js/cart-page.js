@@ -92,7 +92,7 @@
         <div class="summary-row summary-row--total"><dt>Final payable</dt><dd>Confirmed on WhatsApp</dd></div>
       </dl>
       ${hasDemoPrices ? '<p class="summary-note demo-price-note">Sample prices are for demonstration only. KAYAM SPICES must confirm or replace them in Admin before live orders can be accepted.</p>' : ""}
-      <p class="summary-note">Delivery availability, delivery charges, final payable amount, and payment arrangements will be confirmed by KAYAM SPICES through WhatsApp. Payment is not collected on this website.</p>
+      <p class="summary-note">Delivery availability and delivery charges will be confirmed by KAYAM SPICES. Payment method: Cash on Delivery.</p>
       ${action}
       <a class="btn btn--outline btn--block" style="margin-top: .5rem;" href="shop.html">Continue shopping</a>
       <div class="trust-line">${Kayam.icon("shield")}<span>Your cart is saved in this browser. Prices and availability are rechecked before checkout.</span></div>
