@@ -1,12 +1,12 @@
 /* KAYAM SPICES PWA service worker. Keep Supabase/API requests and video streams network-only. */
-const CACHE_NAME = "kayam-spices-shell-v4-consolidated-story";
+const CACHE_NAME = "kayam-spices-shell-v5-story-editorial";
 const APP_SCOPE = new URL("./", self.registration.scope);
 const PRECACHE = [
   "./", "./index.html", "./shop.html", "./product.html", "./cart.html", "./checkout.html",
   "./order-confirmation.html", "./story.html", "./founder.html", "./contact.html", "./privacy.html", "./terms.html",
   "./404.html", "./offline.html", "./manifest.webmanifest",
   "./assets/css/tokens.css", "./assets/css/base.css", "./assets/css/components.css",
-  "./assets/css/desktop.css", "./assets/css/mobile.css", "./assets/css/desktop-refinement.css", "./assets/css/founder.css",
+  "./assets/css/desktop.css", "./assets/css/mobile.css", "./assets/css/desktop-refinement.css", "./assets/css/story-editorial.css", "./assets/css/founder.css",
   "./assets/js/config.js", "./assets/js/supabase-client.js", "./assets/js/common.js",
   "./assets/js/whatsapp.js", "./assets/js/catalogue.js", "./assets/js/cart.js", "./assets/js/home.js",
   "./assets/js/cart-page.js", "./assets/js/checkout.js", "./assets/js/confirmation.js",

@@ -41,7 +41,7 @@ Groundnut Chutney Powder uses a photograph of whole peanuts as an ingredient ref
 | Placement | Pexels photo ID | Creator/source | Source page |
 |---|---:|---|---|
 | Homepage story section | 5480193 | Yan Krukau | https://www.pexels.com/photo/5480193/ |
-| Our Story — spice-market heritage photograph (retained in consolidated page) | 6444313 | Edoardo Colombo | https://www.pexels.com/photo/close-up-of-spices-on-a-bazaar-6444313/ |
+| Our Story — Indian spice heritage hero | 30296301 | Kamakshi | https://www.pexels.com/photo/colorful-assortment-of-indian-spices-on-wooden-surface-30296301/ |
 | Our Story — supporting spice photograph | 672046 | Mareefe | https://www.pexels.com/photo/macro-photography-of-pepper-powder-672046/ |
 
 ## Hero-image separation
