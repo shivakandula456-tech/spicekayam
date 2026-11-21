@@ -393,7 +393,7 @@
           <div class="footer-contact">
             <a href="${escapeHTML(whatsappUrl)}" target="_blank" rel="noopener">${icon("whatsapp")} +91 788 806 0231</a>
             <a href="mailto:${escapeHTML(email)}">${icon("mail")} ${escapeHTML(email)}</a>
-            <p>Your website order is saved first. Delivery availability, delivery charges, and payment arrangements are then confirmed by KAYAM SPICES on WhatsApp.</p>
+            <p>Website orders are saved for administrator confirmation. Cash on Delivery is the only payment method.</p>
           </div>
         </div>
       </div>
