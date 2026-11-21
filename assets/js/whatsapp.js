@@ -26,6 +26,7 @@
     lines.push(`Customer: ${order.customerName}`);
     lines.push(`Phone: ${order.customerPhone}`);
     lines.push(`Delivery address: ${order.customerAddress}`);
+    lines.push("Payment method: Cash on Delivery (COD)");
     lines.push("");
     lines.push("Order items:");
     (order.items || []).forEach(function (item, index) {
@@ -38,8 +39,8 @@
     lines.push("");
     lines.push(`Subtotal: ${Kayam.formatMoney(order.subtotalPaise, { decimals: true })}`);
     lines.push("Delivery availability and delivery charges: To be confirmed by KAYAM SPICES.");
-    lines.push("Final payable amount: Pending confirmation.");
-    lines.push("Payment: To be arranged separately after confirmation.");
+    lines.push("Final payable amount: Pending confirmation until delivery charge is set.");
+    lines.push("Payment method: Cash on Delivery. No online payment is requested.");
     lines.push("Order status: Pending confirmation. This order has not yet been confirmed by the business.");
     lines.push("");
     lines.push("I understand that this order is pending confirmation and that delivery and payment will be arranged directly with KAYAM SPICES.");
